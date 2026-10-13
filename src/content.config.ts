@@ -11,7 +11,9 @@ const thoughts = defineCollection({
     tags: z.array(z.string()),
     minutes: z.number().int().positive(),
     number: z.number().int().positive(),
-    cover: z.enum(['constructivist', 'none']).default('none'),
+    coverImage: z.string().optional(),
+    coverAlt: z.string().optional(),
+    coverCaption: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });

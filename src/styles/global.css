@@ -155,164 +155,18 @@ a {
   padding: 0 32px;
 }
 
-.poster {
-  height: min(43vw, 420px);
-  min-height: 300px;
-  position: relative;
-  overflow: hidden;
-  background: #e7d9ba;
-  isolation: isolate;
-  border: 1px solid #cfc3a7;
+.cover {
+  margin: 0;
 }
 
-.poster:after {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  opacity: 0.26;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E");
-}
-
-.poster .sun {
-  position: absolute;
-  width: 53%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: #d14a30;
-  top: -58%;
-  right: 2%;
-}
-
-.poster .beam {
-  position: absolute;
-  background: #22251f;
-  width: 120%;
-  height: 18%;
-  transform: rotate(-18deg);
-  left: -10%;
-  top: 50%;
-}
-
-.poster .ring {
-  position: absolute;
-  border: 30px solid #167b76;
-  border-radius: 50%;
-  width: 32%;
-  aspect-ratio: 1;
-  right: 6%;
-  bottom: -38%;
-  transform: rotate(22deg);
-}
-
-.poster .character {
-  position: absolute;
-  left: 56%;
-  bottom: -7%;
-  height: 77%;
-  width: 18%;
-  transform: rotate(-14deg);
-  z-index: 2;
-}
-
-.poster .head {
-  position: absolute;
-  left: 20%;
-  top: 2%;
-  width: 54%;
-  aspect-ratio: 1;
-  border-radius: 50% 50% 45% 45%;
-  background: #282722;
-  box-shadow: inset -14px 0 #5c5a50;
-}
-
-.poster .hat {
-  position: absolute;
-  top: -3%;
-  left: 3%;
-  height: 11%;
-  width: 90%;
-  background: #26251f;
-  transform: rotate(-8deg);
-}
-
-.poster .body {
-  position: absolute;
-  top: 27%;
-  left: 5%;
-  width: 90%;
-  height: 70%;
-  background: #282722;
-  clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%);
-}
-
-.poster .tie {
-  position: absolute;
-  top: 30%;
-  left: 43%;
-  width: 14%;
-  height: 37%;
-  background: #e8d9b7;
-  clip-path: polygon(50% 0, 100% 18%, 60% 100%, 0 18%);
-}
-
-.poster .poster-text {
-  position: absolute;
-  z-index: 5;
-  left: 5%;
-  top: 11%;
-  font-family: Impact, 'Arial Narrow', sans-serif;
-  font-stretch: condensed;
-  line-height: 0.88;
-  letter-spacing: -0.04em;
-  font-weight: 900;
-  font-size: clamp(38px, 7.9vw, 116px);
-  transform: rotate(-6deg);
-}
-
-.poster-text .line {
+.cover-image {
   display: block;
-}
-
-.poster-text .line:nth-child(1) {
-  color: #20231e;
-}
-
-.poster-text .line:nth-child(2) {
-  color: #f0e3c7;
-  text-shadow: 3px 3px 0 #24251e;
-}
-
-.poster-text .line:nth-child(3) {
-  color: #cf442d;
-}
-
-.poster-text .neq {
-  color: #0f7a76;
-  padding-right: 0.07em;
-}
-
-.poster .micro {
-  position: absolute;
-  bottom: 19px;
-  left: 26px;
-  z-index: 7;
-  color: #eee0c5;
-  font: 11px 'IBM Plex Mono', monospace;
-  letter-spacing: 0.08em;
-}
-
-.poster .stamp {
-  position: absolute;
-  right: 4%;
-  top: 10%;
-  border: 5px solid #222;
-  transform: rotate(15deg);
-  font: 700 clamp(14px, 2vw, 30px) 'IBM Plex Mono', monospace;
-  padding: 8px 12px;
-  z-index: 6;
-  color: #222;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 1px solid #cfc3a7;
+  background: #e7d9ba;
 }
 
 .caption {
@@ -501,16 +355,6 @@ a {
   white-space: nowrap;
 }
 
-@media (max-width: 900px) {
-  .poster .character {
-    left: 68%;
-  }
-
-  .poster-text {
-    font-size: clamp(38px, 9vw, 90px) !important;
-  }
-}
-
 @media (max-width: 700px) {
   .top-inner,
   .hero,
@@ -567,29 +411,6 @@ a {
   .article .example {
     font-size: 16px;
     padding: 15px 17px;
-  }
-
-  .poster {
-    min-height: 235px;
-  }
-
-  .poster .stamp {
-    display: none;
-  }
-
-  .poster .poster-text {
-    font-size: 10vw !important;
-    top: 16%;
-  }
-
-  .poster .character {
-    left: 70%;
-    height: 65%;
-  }
-
-  .poster .micro {
-    font-size: 8px;
-    left: 12px;
   }
 
   .footer {

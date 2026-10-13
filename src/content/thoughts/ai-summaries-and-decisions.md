@@ -9,7 +9,9 @@ tags:
   - Management
 minutes: 10
 number: 1
-cover: constructivist
+coverImage: /covers/ai-summaries-and-decisions.png
+coverAlt: 'Constructivist collage: Accurate ≠ Justified ≠ Sufficient — a man with an APPROVED stamp leaps a gap under a watching eye'
+coverCaption: ACCURATE ≠ JUSTIFIED ≠ SUFFICIENT
 draft: false
 ---
 

@@ -10,7 +10,9 @@ interface Props {
   tags: string[];
   minutes: number;
   number: number;
-  cover?: 'constructivist' | 'none';
+  coverImage?: string;
+  coverAlt?: string;
+  coverCaption?: string;
 }
 
 const {
@@ -21,7 +23,9 @@ const {
   tags,
   minutes,
   number,
-  cover = 'none',
+  coverImage,
+  coverAlt,
+  coverCaption,
 } = Astro.props;
 
 const padded = String(number).padStart(3, '0');
@@ -73,7 +77,15 @@ const pageTitle = `${fullTitle} — Unsorted Thoughts`;
       </div>
     </section>
 
-    {cover === 'constructivist' && <CoverPoster />}
+    {
+      coverImage && (
+        <CoverPoster
+          src={coverImage}
+          alt={coverAlt}
+          caption={coverCaption}
+        />
+      )
+    }
 
     <div class="content-shell" id="article">
       <article class="article">
