@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const thoughts = (await getCollection('thoughts'))
+  .filter((t) => !t.data.draft)
+  .sort((a, b) => b.data.number - a.data.number);
+
+function formatDate(date: Date) {
+  return date
+    .toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    })
+    .toUpperCase();
+}
+---
+
+<BaseLayout title="Unsorted Thoughts — unsorted.club">
+  <header class="top">
+    <div class="top-inner">
+      <a class="brand" href="/">unsorted<span>.</span>club</a>
+      <div class="top-right">
+        <span>THOUGHTS / UNSORTED.CLUB</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="index-hero">
+      <div class="eyebrow">Unsorted / Thoughts</div>
+      <h1>Notes on decisions, AI, and how work actually gets done.</h1>
+      <p class="dek">
+        Occasional essays. Written when something refuses to stay unsorted.
+      </p>
+    </section>
+
+    <ol class="thought-list">
+      {
+        thoughts.map((thought) => {
+          const fullTitle = thought.data.titleEmphasis
+            ? `${thought.data.title} ${thought.data.titleEmphasis}`
+            : thought.data.title;
+          const padded = String(thought.data.number).padStart(3, '0');
+          return (
+            <li>
+              <a href={`/thoughts/${thought.id}/`}>
+                <span class="thought-num">No. {padded}</span>
+                <span>
+                  <p class="thought-title">{fullTitle}</p>
+                  <span class="thought-meta">
+                    {formatDate(thought.data.date)}
+                    <span class="dot"> / </span>
+                    {thought.data.tags.map((t) => t.toUpperCase()).join(' · ')}
+                  </span>
+                </span>
+                <span class="thought-read">~{thought.data.minutes} MIN</span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </main>
+
+  <footer class="footer">
+    <span>© {new Date().getFullYear()} UNSORTED THOUGHTS</span>
+    <span>THINK CLEARLY. DECIDE CAREFULLY.</span>
+    <a href="https://unsorted.club">UNSORTED.CLUB</a>
+  </footer>
+</BaseLayout>

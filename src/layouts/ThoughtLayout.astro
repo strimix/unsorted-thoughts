@@ -1,0 +1,103 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import CoverPoster from '../components/CoverPoster.astro';
+
+interface Props {
+  title: string;
+  titleEmphasis?: string;
+  dek: string;
+  date: Date;
+  tags: string[];
+  minutes: number;
+  number: number;
+  cover?: 'constructivist' | 'none';
+}
+
+const {
+  title,
+  titleEmphasis,
+  dek,
+  date,
+  tags,
+  minutes,
+  number,
+  cover = 'none',
+} = Astro.props;
+
+const padded = String(number).padStart(3, '0');
+const dateLabel = date
+  .toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  })
+  .toUpperCase();
+const tagsLabel = tags.map((t) => t.toUpperCase()).join(' · ');
+const fullTitle = titleEmphasis ? `${title} ${titleEmphasis}` : title;
+const pageTitle = `${fullTitle} — Unsorted Thoughts`;
+---
+
+<BaseLayout title={pageTitle} description={dek}>
+  <div class="progress" id="progress"></div>
+  <header class="top">
+    <div class="top-inner">
+      <a class="brand" href="/">unsorted<span>.</span>club</a>
+      <div class="top-right">
+        <a href="#article">Read the essay ↓</a>
+        <span>THOUGHTS / UNSORTED.CLUB</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="eyebrow">Unsorted / Thoughts No. {padded}</div>
+      <h1>
+        {
+          titleEmphasis ? (
+            <>
+              {title} <em>{titleEmphasis}</em>
+            </>
+          ) : (
+            title
+          )
+        }
+      </h1>
+      <p class="dek">{dek}</p>
+      <div class="meta">
+        <b>{tagsLabel}</b>
+        <span class="dot">/</span>
+        <span>{dateLabel}</span>
+        <span class="dot">/</span>
+        <span>~{minutes} MIN READ</span>
+      </div>
+    </section>
+
+    {cover === 'constructivist' && <CoverPoster />}
+
+    <div class="content-shell" id="article">
+      <article class="article">
+        <slot />
+        <div class="endmark">■</div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span>© {date.getFullYear()} UNSORTED THOUGHTS</span>
+    <span>THINK CLEARLY. DECIDE CAREFULLY.</span>
+    <a href="#top">BACK TO TOP ↑</a>
+  </footer>
+
+  <script>
+    const progress = document.getElementById('progress');
+    function update() {
+      if (!progress) return;
+      const d = document.documentElement;
+      progress.style.width =
+        (100 * scrollY) / Math.max(1, d.scrollHeight - innerHeight) + '%';
+    }
+    addEventListener('scroll', update, { passive: true });
+    update();
+  </script>
+</BaseLayout>

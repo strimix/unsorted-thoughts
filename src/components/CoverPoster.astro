@@ -1,0 +1,35 @@
+---
+interface Props {
+  caption?: string;
+}
+
+const {
+  caption = 'COVER STUDY / CONSTRUCTIVIST CINEMA POSTER — CSS ART PLACEHOLDER',
+} = Astro.props;
+---
+
+<div class="poster-wrap">
+  <div
+    class="poster"
+    role="img"
+    aria-label="Constructivist-inspired editorial poster: Accurate not equal Justified not equal Sufficient"
+  >
+    <div class="sun"></div>
+    <div class="beam"></div>
+    <div class="ring"></div>
+    <div class="character">
+      <div class="head"></div>
+      <div class="hat"></div>
+      <div class="body"></div>
+      <div class="tie"></div>
+    </div>
+    <div class="poster-text">
+      <span class="line">ACCURATE</span>
+      <span class="line"><span class="neq">≠</span>JUSTIFIED</span>
+      <span class="line"><span class="neq">≠</span>SUFFICIENT</span>
+    </div>
+    <div class="stamp">APPROVED!</div>
+    <div class="micro">A COMEDY OF UNSUPPORTED CERTAINTY · 1927 / 2026</div>
+  </div>
+  <div class="caption">{caption}</div>
+</div>
