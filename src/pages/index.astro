@@ -1,35 +1,44 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import LangSwitch from '../components/LangSwitch.astro';
+import {
+  alternateHref,
+  formatDate,
+  getLocaleFromId,
+  getSlugFromId,
+  thoughtHref,
+  t,
+} from '../lib/i18n';
+
+const locale = 'en' as const;
+const copy = t(locale);
+const switchHref = alternateHref(locale);
 
 const thoughts = (await getCollection('thoughts'))
-  .filter((t) => !t.data.draft)
+  .filter((thought) => !thought.data.draft && getLocaleFromId(thought.id) === locale)
   .sort((a, b) => b.data.number - a.data.number);
-
-function formatDate(date: Date) {
-  return date
-    .toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    })
-    .toUpperCase();
-}
 ---
 
-<BaseLayout title="Random thoughts — unsorted.club">
+<BaseLayout
+  title={copy.siteTitle}
+  description={copy.siteDescription}
+  locale={locale}
+  alternateUrl={switchHref}
+>
   <header class="top">
     <div class="top-inner">
       <a class="brand" href="/">unsorted<span>.</span>club</a>
+      <div class="top-right">
+        <LangSwitch locale={locale} href={switchHref} />
+      </div>
     </div>
   </header>
 
   <main>
     <section class="index-hero">
-      <h1>Random thoughts.</h1>
-      <p class="dek">
-        Written when something refuses to stay unsorted.
-      </p>
+      <h1>{copy.heroTitle}</h1>
+      <p class="dek">{copy.heroDek}</p>
     </section>
 
     <ol class="thought-list">
@@ -39,19 +48,20 @@ function formatDate(date: Date) {
             ? `${thought.data.title} ${thought.data.titleEmphasis}`
             : thought.data.title;
           const padded = String(thought.data.number).padStart(3, '0');
+          const slug = getSlugFromId(thought.id);
           return (
             <li>
-              <a href={`/${thought.id}/`}>
+              <a href={thoughtHref(locale, slug)}>
                 <span class="thought-num">No. {padded}</span>
                 <span>
                   <p class="thought-title">{fullTitle}</p>
                   <span class="thought-meta">
-                    {formatDate(thought.data.date)}
+                    {formatDate(thought.data.date, locale)}
                     <span class="dot"> / </span>
-                    {thought.data.tags.map((t) => t.toUpperCase()).join(' · ')}
+                    {thought.data.tags.map((tag) => tag.toUpperCase()).join(' · ')}
                   </span>
                 </span>
-                <span class="thought-read">~{thought.data.minutes} MIN</span>
+                <span class="thought-read">{copy.minShort(thought.data.minutes)}</span>
               </a>
             </li>
           );
@@ -59,5 +69,4 @@ function formatDate(date: Date) {
       }
     </ol>
   </main>
-
 </BaseLayout>

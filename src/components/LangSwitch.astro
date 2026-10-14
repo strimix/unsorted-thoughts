@@ -1,0 +1,23 @@
+---
+import type { Locale } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+  href: string;
+}
+
+const { locale, href } = Astro.props;
+const other: Locale = locale === 'en' ? 'ru' : 'en';
+---
+
+<a
+  class="lang-switch"
+  href={href}
+  hreflang={other}
+  lang={other}
+  aria-label={locale === 'en' ? 'Читать на русском' : 'Read in English'}
+>
+  <span class:list={[{ active: locale === 'en' }]}>EN</span>
+  <span class="sep" aria-hidden="true">·</span>
+  <span class:list={[{ active: locale === 'ru' }]}>RU</span>
+</a>

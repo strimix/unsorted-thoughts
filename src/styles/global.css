@@ -85,6 +85,30 @@ a {
   color: var(--red);
 }
 
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+  font: 11px 'IBM Plex Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #b0aea4;
+  padding: 4px 0;
+}
+
+.lang-switch .sep {
+  color: #d0cec4;
+}
+
+.lang-switch span.active {
+  color: var(--ink);
+}
+
+.lang-switch:hover span:not(.sep):not(.active) {
+  color: var(--red);
+}
+
 .hero {
   max-width: 1160px;
   margin: 0 auto;

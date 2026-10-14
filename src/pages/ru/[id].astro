@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from 'astro:content';
+import ThoughtLayout from '../../layouts/ThoughtLayout.astro';
+import { getLocaleFromId, getSlugFromId } from '../../lib/i18n';
+
+export async function getStaticPaths() {
+  const thoughts = await getCollection('thoughts');
+  return thoughts
+    .filter(
+      (thought) =>
+        !thought.data.draft && getLocaleFromId(thought.id) === 'ru',
+    )
+    .map((thought) => ({
+      params: { id: getSlugFromId(thought.id) },
+      props: { thought },
+    }));
+}
+
+const { thought } = Astro.props;
+const { Content } = await render(thought);
+---
+
+<ThoughtLayout {...thought.data} locale="ru" slug={getSlugFromId(thought.id)}>
+  <Content />
+</ThoughtLayout>
