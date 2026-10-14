@@ -20,6 +20,9 @@ const {
 const site = Astro.site ?? new URL('https://thoughts.unsorted.club');
 const canonical = new URL(Astro.url.pathname, site).href;
 const ogImage = image ? new URL(image, site).href : undefined;
+const ogImageType = image?.match(/\.(jpe?g|png|gif|webp)$/i)?.[1]
+  ?.toLowerCase()
+  .replace('jpg', 'jpeg');
 ---
 
 <!doctype html>
@@ -30,6 +33,7 @@ const ogImage = image ? new URL(image, site).href : undefined;
     <meta name="theme-color" content={themeColor} />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
 
@@ -38,8 +42,19 @@ const ogImage = image ? new URL(image, site).href : undefined;
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    {ogImage && <meta property="og:image:alt" content={title} />}
+    {
+      ogImage && (
+        <>
+          <meta property="og:image" content={ogImage} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="627" />
+          {ogImageType && (
+            <meta property="og:image:type" content={`image/${ogImageType}`} />
+          )}
+          <meta property="og:image:alt" content={title} />
+        </>
+      )
+    }
 
     <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={title} />
