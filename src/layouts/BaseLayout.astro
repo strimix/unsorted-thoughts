@@ -5,13 +5,21 @@ interface Props {
   title: string;
   description?: string;
   themeColor?: string;
+  image?: string;
+  type?: 'website' | 'article';
 }
 
 const {
   title,
-  description = 'Unsorted thoughts on AI, decisions, and how work actually gets done.',
+  description = 'Random thoughts. Written when something refuses to stay unsorted.',
   themeColor = '#faf9f6',
+  image,
+  type = 'website',
 } = Astro.props;
+
+const site = Astro.site ?? new URL('https://thoughts.unsorted.club');
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImage = image ? new URL(image, site).href : undefined;
 ---
 
 <!doctype html>
@@ -21,8 +29,22 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content={themeColor} />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="unsorted.club" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta property="og:image:alt" content={title} />}
+
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
   </head>
   <body>
     <slot />

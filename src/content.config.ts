@@ -14,6 +14,7 @@ const thoughts = defineCollection({
     coverImage: z.string().optional(),
     coverAlt: z.string().optional(),
     coverCaption: z.string().optional(),
+    ogImage: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });

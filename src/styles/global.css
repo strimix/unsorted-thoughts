@@ -268,7 +268,7 @@ a {
   max-width: 1160px;
   margin: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   font: 11px 'IBM Plex Mono', monospace;
   color: #777;
 }
@@ -294,7 +294,7 @@ a {
   letter-spacing: -0.058em;
   font-size: clamp(40px, 6vw, 72px);
   line-height: 1.05;
-  margin: 24px 0 18px;
+  margin: 0 0 18px;
   max-width: 720px;
 }
 
@@ -369,10 +369,6 @@ a {
 
   .top-right {
     gap: 14px;
-  }
-
-  .top-right a:first-child {
-    display: none;
   }
 
   .hero {

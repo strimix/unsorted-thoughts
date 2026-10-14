@@ -13,6 +13,7 @@ interface Props {
   coverImage?: string;
   coverAlt?: string;
   coverCaption?: string;
+  ogImage?: string;
 }
 
 const {
@@ -26,6 +27,7 @@ const {
   coverImage,
   coverAlt,
   coverCaption,
+  ogImage,
 } = Astro.props;
 
 const padded = String(number).padStart(3, '0');
@@ -38,24 +40,26 @@ const dateLabel = date
   .toUpperCase();
 const tagsLabel = tags.map((t) => t.toUpperCase()).join(' · ');
 const fullTitle = titleEmphasis ? `${title} ${titleEmphasis}` : title;
-const pageTitle = `${fullTitle} — Unsorted Thoughts`;
+const pageTitle = `${fullTitle} — unsorted.club`;
+const shareImage = ogImage ?? coverImage;
 ---
 
-<BaseLayout title={pageTitle} description={dek}>
+<BaseLayout
+  title={pageTitle}
+  description={dek}
+  image={shareImage}
+  type="article"
+>
   <div class="progress" id="progress"></div>
   <header class="top">
     <div class="top-inner">
       <a class="brand" href="/">unsorted<span>.</span>club</a>
-      <div class="top-right">
-        <a href="#article">Read the essay ↓</a>
-        <span>THOUGHTS / UNSORTED.CLUB</span>
-      </div>
     </div>
   </header>
 
   <main id="top">
     <section class="hero">
-      <div class="eyebrow">Unsorted / Thoughts No. {padded}</div>
+      <div class="eyebrow">No. {padded}</div>
       <h1>
         {
           titleEmphasis ? (
@@ -96,8 +100,6 @@ const pageTitle = `${fullTitle} — Unsorted Thoughts`;
   </main>
 
   <footer class="footer">
-    <span>© {date.getFullYear()} UNSORTED THOUGHTS</span>
-    <span>THINK CLEARLY. DECIDE CAREFULLY.</span>
     <a href="#top">BACK TO TOP ↑</a>
   </footer>
 
