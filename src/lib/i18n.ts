@@ -1,5 +1,8 @@
 export type Locale = 'en' | 'ru';
 
+/** Set to true when the Russian edition should be public again. */
+export const ruEnabled = false;
+
 export const locales: Locale[] = ['en', 'ru'];
 export const defaultLocale: Locale = 'en';
 

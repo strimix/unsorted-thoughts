@@ -1,9 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ThoughtLayout from '../../layouts/ThoughtLayout.astro';
-import { getLocaleFromId, getSlugFromId } from '../../lib/i18n';
+import { getLocaleFromId, getSlugFromId, ruEnabled } from '../../lib/i18n';
 
 export async function getStaticPaths() {
+  if (!ruEnabled) return [];
+
   const thoughts = await getCollection('thoughts');
   return thoughts
     .filter(

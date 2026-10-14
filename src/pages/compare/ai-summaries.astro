@@ -1,0 +1,263 @@
+---
+import enRaw from '../../content/thoughts/ai-summaries-and-decisions.md?raw';
+import currentRuRaw from '../../content/thoughts/ru/ai-summaries-and-decisions.md?raw';
+import newRuRaw from '../../content/_compare/ai-summaries-new-ru.md?raw';
+
+function stripFrontmatter(md: string) {
+  return md.replace(/^---[\s\S]*?\n---\n/, '').trim();
+}
+
+function blocks(md: string) {
+  return stripFrontmatter(md)
+    .split(/\n{2,}/)
+    .map((block) => block.trim())
+    .filter(Boolean);
+}
+
+/** Split into intro + sections starting at ## headings. */
+function sections(md: string) {
+  const parts = blocks(md);
+  const result: { title: string; blocks: string[] }[] = [];
+  let current = { title: 'Intro', blocks: [] as string[] };
+
+  for (const part of parts) {
+    if (/^##\s/.test(part)) {
+      if (current.blocks.length || result.length === 0) result.push(current);
+      current = { title: part, blocks: [part] };
+    } else {
+      current.blocks.push(part);
+    }
+  }
+  result.push(current);
+  return result;
+}
+
+function zipSections(
+  enSecs: ReturnType<typeof sections>,
+  curSecs: ReturnType<typeof sections>,
+  newSecs: ReturnType<typeof sections>,
+) {
+  const count = Math.max(enSecs.length, curSecs.length, newSecs.length);
+  const rows: {
+    index: number;
+    section: string;
+    en: string;
+    currentRu: string;
+    newRu: string;
+  }[] = [];
+  let index = 0;
+
+  for (let s = 0; s < count; s++) {
+    const enBlocks = enSecs[s]?.blocks ?? [];
+    const curBlocks = curSecs[s]?.blocks ?? [];
+    const newBlocks = newSecs[s]?.blocks ?? [];
+    const len = Math.max(enBlocks.length, curBlocks.length, newBlocks.length);
+    const sectionLabel =
+      enSecs[s]?.title ?? curSecs[s]?.title ?? newSecs[s]?.title ?? `Section ${s + 1}`;
+
+    for (let i = 0; i < len; i++) {
+      index += 1;
+      rows.push({
+        index,
+        section: sectionLabel,
+        en: enBlocks[i] ?? '',
+        currentRu: curBlocks[i] ?? '',
+        newRu: newBlocks[i] ?? '',
+      });
+    }
+  }
+
+  return rows;
+}
+
+const enBlocks = blocks(enRaw);
+const currentBlocks = blocks(currentRuRaw);
+const newBlocks = blocks(newRuRaw);
+const rows = zipSections(
+  sections(enRaw),
+  sections(currentRuRaw),
+  sections(newRuRaw),
+);
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Compare: AI summaries EN / current RU / new RU</title>
+    <style>
+      :root {
+        --paper: #faf9f6;
+        --ink: #242424;
+        --muted: #6d6d69;
+        --line: #e5e3dc;
+        --red: #cb402b;
+        --en: #eef3f1;
+        --cur: #f7f1ea;
+        --neu: #eef1f7;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font: 14px/1.45 Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      }
+      .bar {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: rgba(250, 249, 246, 0.96);
+        border-bottom: 1px solid var(--line);
+        padding: 14px 20px;
+        display: flex;
+        gap: 18px;
+        align-items: baseline;
+        flex-wrap: wrap;
+      }
+      .bar h1 {
+        margin: 0;
+        font: 600 16px/1.2 'Space Grotesk', Inter, sans-serif;
+        letter-spacing: -0.03em;
+      }
+      .bar p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .counts {
+        margin-left: auto;
+        font: 11px/1.4 'IBM Plex Mono', monospace;
+        color: var(--muted);
+      }
+      .grid-head,
+      .row {
+        display: grid;
+        grid-template-columns: 44px 1fr 1fr 1fr;
+        gap: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .grid-head {
+        position: sticky;
+        top: 52px;
+        z-index: 4;
+        background: var(--paper);
+      }
+      .grid-head > div,
+      .cell {
+        padding: 12px 14px;
+        border-right: 1px solid var(--line);
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .grid-head > div:last-child,
+      .cell:last-child {
+        border-right: 0;
+      }
+      .grid-head > div {
+        font: 11px/1.3 'IBM Plex Mono', monospace;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .num {
+        font: 11px/1.3 'IBM Plex Mono', monospace;
+        color: #9a988e;
+        text-align: right;
+        background: #f3f2ed;
+      }
+      .en {
+        background: var(--en);
+      }
+      .cur {
+        background: var(--cur);
+      }
+      .neu {
+        background: var(--neu);
+      }
+      .empty {
+        color: #b0aea4;
+        font-style: italic;
+      }
+      .heading {
+        font-weight: 650;
+        color: var(--red);
+      }
+      .section-start {
+        border-top: 2px solid #cfcabb;
+      }
+      .hint {
+        display: none;
+        padding: 10px 20px;
+        color: var(--muted);
+        font-size: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+      @media (max-width: 1000px) {
+        .grid-head,
+        .row {
+          grid-template-columns: 32px 1fr;
+        }
+        .grid-head > div:nth-child(n + 3),
+        .cell:nth-child(n + 3) {
+          display: none;
+        }
+        .hint {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar">
+      <h1>Сравнение переводов</h1>
+      <p>EN · текущая RU · новый близкий перевод (выравнивание по секциям)</p>
+      <div class="counts">
+        EN {enBlocks.length} · current {currentBlocks.length} · new {newBlocks.length} блоков · {rows.length} строк
+      </div>
+    </div>
+    <div class="hint">
+      На узком экране показаны номер и EN. Откройте на широком экране, чтобы видеть все три колонки.
+    </div>
+
+    <div class="grid-head">
+      <div>#</div>
+      <div class="en">English</div>
+      <div class="cur">Текущая RU</div>
+      <div class="neu">Новый перевод</div>
+    </div>
+
+    {
+      rows.map((row, i) => {
+        const isHeading = (text: string) => /^#{1,3}\s/.test(text);
+        const sectionStart = i === 0 || rows[i - 1].section !== row.section;
+        return (
+          <div class:list={['row', { 'section-start': sectionStart }]}>
+            <div class="cell num">{row.index}</div>
+            <div class:list={['cell', 'en', { heading: isHeading(row.en), empty: !row.en }]}>
+              {row.en || '—'}
+            </div>
+            <div
+              class:list={[
+                'cell',
+                'cur',
+                { heading: isHeading(row.currentRu), empty: !row.currentRu },
+              ]}
+            >
+              {row.currentRu || '—'}
+            </div>
+            <div
+              class:list={['cell', 'neu', { heading: isHeading(row.newRu), empty: !row.newRu }]}
+            >
+              {row.newRu || '—'}
+            </div>
+          </div>
+        );
+      })
+    }
+  </body>
+</html>

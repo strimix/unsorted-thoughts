@@ -14,13 +14,9 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      i18n: {
-        defaultLocale: 'en',
-        locales: {
-          en: 'en',
-          ru: 'ru',
-        },
-      },
+      // Hide compare tools and Russian routes while ruEnabled is false.
+      filter: (page) =>
+        !page.includes('/compare/') && !page.includes('/ru'),
     }),
   ],
 });

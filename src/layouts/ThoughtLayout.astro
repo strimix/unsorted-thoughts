@@ -7,6 +7,7 @@ import {
   formatDate,
   homeHref,
   type Locale,
+  ruEnabled,
   t,
 } from '../lib/i18n';
 
@@ -49,7 +50,7 @@ const tagsLabel = tags.map((tag) => tag.toUpperCase()).join(' · ');
 const fullTitle = titleEmphasis ? `${title} ${titleEmphasis}` : title;
 const pageTitle = `${fullTitle} — unsorted.club`;
 const shareImage = ogImage ?? coverImage;
-const switchHref = alternateHref(locale, slug);
+const switchHref = ruEnabled ? alternateHref(locale, slug) : undefined;
 ---
 
 <BaseLayout
@@ -64,9 +65,13 @@ const switchHref = alternateHref(locale, slug);
   <header class="top">
     <div class="top-inner">
       <a class="brand" href={homeHref(locale)}>unsorted<span>.</span>club</a>
-      <div class="top-right">
-        <LangSwitch locale={locale} href={switchHref} />
-      </div>
+      {
+        ruEnabled && switchHref && (
+          <div class="top-right">
+            <LangSwitch locale={locale} href={switchHref} />
+          </div>
+        )
+      }
     </div>
   </header>
 

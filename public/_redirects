@@ -1,2 +1,5 @@
 /thoughts/:slug /:slug/ 301
 /thoughts/:slug/ /:slug/ 301
+/ru / 302
+/ru/ / 302
+/ru/* / 302

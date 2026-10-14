@@ -61,7 +61,7 @@ const alternateLocale = locale === 'en' ? 'ru' : 'en';
     <meta property="og:type" content={type} />
     <meta property="og:locale" content={locale === 'ru' ? 'ru_RU' : 'en_US'} />
     {
-      alternateLocale && (
+      alternateAbsolute && (
         <meta
           property="og:locale:alternate"
           content={alternateLocale === 'ru' ? 'ru_RU' : 'en_US'}
