@@ -92,7 +92,7 @@ That was actually one of the better responses in the conversation.
 
 Because it exposed a distinction that is easy to overlook:
 
-Refreshing a query doesn't guarantee that the underlying data is fresh.
+**Refreshing a query doesn't guarantee that the underlying data is fresh.**
 
 There are many possible explanations for this kind of inconsistency: asynchronous updates, caching, different service boundaries, delayed events or something else entirely.
 
@@ -188,49 +188,22 @@ The assistant might perform reasonably well.
 
 Now suppose we evaluate the entire interaction:
 
-Did the customer get their problem resolved?
+**Did the customer get their problem resolved?**
 
 That's a very different test.
 
-A conversation can contain many individually acceptable responses and still be unsuccessful as a workflow.
+**A conversation can contain many individually acceptable responses and still be unsuccessful as a workflow.**
 
 ## 5. What I'd test if I were building this system
 
 Rather than treating this as an example of an LLM behaving badly, I think it's more useful to turn the experience into a small evaluation suite.
 
-### State consistency
-
-What happens when the app and the agent report different states for the same entity?
-
-Can the agent identify the contradiction, verify freshness and escalate when necessary?
-
-### Evidence-grounded claims
-
-Does the agent distinguish between information returned by a tool and conclusions inferred from that information?
-
-Can it avoid turning a generic status into an unsupported promise?
-
-### Action verification
-
-When the assistant says it has initiated an action, is that statement backed by an observable result?
-
-Can the system distinguish between an intended action, an attempted action and a completed action?
-
-### Escalation routing
-
-Does the handoff reach a team with the right permissions, regional context and ability to help?
-
-Is success measured by the transfer event or by the outcome of the transfer?
-
-### Failure recovery
-
-When the same approach fails repeatedly, does the agent change strategy?
-
-Or does it continue producing variations of an otherwise reasonable response?
-
-### End-to-end resolution
-
-Can we evaluate the full customer journey rather than only the quality of individual messages and tool calls?
+1. **State consistency.** What happens when the app and the agent report different states for the same entity? Can the agent identify the contradiction, verify freshness and escalate when necessary?
+2. **Evidence-grounded claims.** Does the agent distinguish between information returned by a tool and conclusions inferred from that information? Can it avoid turning a generic status into an unsupported promise?
+3. **Action verification.** When the assistant says it has initiated an action, is that statement backed by an observable result? Can the system distinguish between an intended action, an attempted action and a completed action?
+4. **Escalation routing.** Does the handoff reach a team with the right permissions, regional context and ability to help? Is success measured by the transfer event or by the outcome of the transfer?
+5. **Failure recovery.** When the same approach fails repeatedly, does the agent change strategy? Or does it continue producing variations of an otherwise reasonable response?
+6. **End-to-end resolution.** Can we evaluate the full customer journey rather than only the quality of individual messages and tool calls?
 
 These aren't particularly exotic requirements.
 
@@ -286,6 +259,6 @@ We spend a lot of time improving how agents communicate.
 
 Perhaps we should spend just as much time verifying what they actually accomplish.
 
-Because the ultimate measure of an AI agent isn't how convincingly it says "I'm helping."
+**Because the ultimate measure of an AI agent isn't how convincingly it says "I'm helping."**
 
-It's whether the system can demonstrate that help actually happened.
+**It's whether the system can demonstrate that help actually happened.**
