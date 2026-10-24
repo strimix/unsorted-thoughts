@@ -42,21 +42,19 @@ At one point, the assistant acknowledged that it had no more accurate ETA than t
 
 Yet it continued to reassure me that the delivery partner was actively heading towards my address and that the order should arrive soon.
 
-Perhaps it had access to courier tracking information. Perhaps it was interpreting an order status. I couldn't tell from the conversation.
+There was one small complication.
 
-But this illustrates an important distinction in AI engineering:
+The courier's location marker hadn't moved on the map throughout my wait.
 
-**Knowing that an order is marked IN_TRANSIT is not necessarily the same as knowing that a courier is actively approaching the customer.**
+Of course, a stationary marker doesn't necessarily mean a stationary courier. The location data itself could have been delayed or stale.
 
-One is a system state.
+But that's precisely the point.
 
-The other is a claim about the physical world.
+The assistant was making confident claims about something neither the app nor the conversation could reliably establish.
 
-And moving from the first to the second requires evidence.
+There's a difference between reporting a system state and claiming to know what's happening in the real world.
 
-For production AI agents, this distinction matters enormously.
-
-A plausible statement isn't necessarily a grounded statement.
+And for production AI agents, that difference matters.
 
 ## 2. Two systems, two versions of reality
 
@@ -134,11 +132,9 @@ I don't know why the routing happened that way. It could have been related to re
 
 But the experience revealed three very different definitions of success:
 
-**1. The assistant says it will transfer the customer.**
-
-**2. A transfer actually takes place.**
-
-**3. The customer reaches someone who can resolve the issue.**
+1. **The assistant says it will transfer the customer.**
+2. **A transfer actually takes place.**
+3. **The customer reaches someone who can resolve the issue.**
 
 These are not equivalent.
 
@@ -172,11 +168,11 @@ This raises a question about how we evaluate AI assistants.
 
 Suppose we evaluate individual responses for:
 
-- Politeness
-- Empathy
-- Relevance
-- Clarity
-- Appropriate language
+- **Politeness**
+- **Empathy**
+- **Relevance**
+- **Clarity**
+- **Appropriate language**
 
 The assistant might perform reasonably well.
 
