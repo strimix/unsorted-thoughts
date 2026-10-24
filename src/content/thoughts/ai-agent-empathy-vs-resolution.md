@@ -1,6 +1,6 @@
 ---
-title: My AI Support Agent Was Very Empathetic.
-titleEmphasis: My Problem Remained Unsolved.
+title: Is Your AI Agent Actually Helping,
+titleEmphasis: or Just Playing the Part?
 dek: 'An everyday customer support experience that turned into an unexpected lesson in AI agent engineering.'
 date: 2026-10-24
 tags:
@@ -92,7 +92,7 @@ That was actually one of the better responses in the conversation.
 
 Because it exposed a distinction that is easy to overlook:
 
-**Refreshing a query doesn't guarantee that the underlying data is fresh.**
+Refreshing a query doesn't guarantee that the underlying data is fresh.
 
 There are many possible explanations for this kind of inconsistency: asynchronous updates, caching, different service boundaries, delayed events or something else entirely.
 
@@ -188,7 +188,7 @@ The assistant might perform reasonably well.
 
 Now suppose we evaluate the entire interaction:
 
-**Did the customer get their problem resolved?**
+Did the customer get their problem resolved?
 
 That's a very different test.
 
