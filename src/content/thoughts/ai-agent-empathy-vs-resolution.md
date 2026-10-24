@@ -52,7 +52,11 @@ But that's precisely the point.
 
 The assistant was making confident claims about something neither the app nor the conversation could reliably establish.
 
+<div class="principle">
+
 There's a difference between reporting a system state and claiming to know what's happening in the real world.
+
+</div>
 
 And for production AI agents, that difference matters.
 
@@ -137,6 +141,12 @@ But the experience revealed three very different definitions of success:
 3. **The customer reaches someone who can resolve the issue.**
 
 These are not equivalent.
+
+<div class="principle">
+
+Promising an action is not the same as completing one.
+
+</div>
 
 And that's an important distinction for anyone building agents that perform real-world actions.
 
@@ -264,12 +274,18 @@ To be fair, the assistant was consistently polite, occasionally transparent abou
 
 Those are real positives.
 
-But the experience was a useful reminder that **a well-behaved AI assistant and a reliable AI-powered service are two different achievements**.
+But the experience was a useful reminder that a well-behaved AI assistant and a reliable AI-powered service are two different achievements.
+
+<div class="principle">
+
+Performing helpfulness is not the same as delivering help.
+
+</div>
 
 We spend a lot of time improving how agents communicate.
 
 Perhaps we should spend just as much time verifying what they actually accomplish.
 
-**Because the ultimate measure of an AI agent isn't how convincingly it says "I'm helping."**
+Because the ultimate measure of an AI agent isn't how convincingly it says "I'm helping."
 
-**It's whether the system can demonstrate that help actually happened.**
+It's whether the system can demonstrate that help actually happened.
